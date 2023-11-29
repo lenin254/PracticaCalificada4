@@ -149,3 +149,5 @@ end
 ## Pregunta
 (Para responder esta pregunta utiliza el repositorio y las actividades que has desarrollado de Introducción a Rails)
 ### 1
+Modifique la lista de películas de la siguiente manera. Cada modificación va a necesitar que realice un cambio en una capa de abstracción diferente  
+- Modifica la vista Index para incluir el número de fila de cada fila en la tabla de películas.
