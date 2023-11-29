@@ -1,7 +1,4 @@
-# PC4
-Creamos el archivo `grep.js` agregando:
-``` javascript
-#!/usr/bin/env nodo
+#!/usr/bin/env node
 
 // La línea anterior es un shebang. En sistemas operativos o entornos tipo Unix,
 
@@ -26,6 +23,6 @@ Creamos el archivo `grep.js` agregando:
 // node grep.js args
 
 // // Lea más sobre shebangs aquí: https://en.wikipedia.org/wiki/Shebang_(Unix)
-```
-podemos notar que al ejecutar el script, solo ejecuta y no hace ninguna accion, esto es devido a que todavia no le agregamos una funcionalidad en sí  
-Ahora buscamos recuperar los argumentos con `proccess.argv` (implementado en javaScript)
+
+
+
