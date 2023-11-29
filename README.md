@@ -1,4 +1,6 @@
 # PC4
+## Preguntas
+### 1
 Creamos el archivo `grep.js` agregando:
 ``` javascript
 #!/usr/bin/env nodo
@@ -29,3 +31,15 @@ Creamos el archivo `grep.js` agregando:
 ```
 podemos notar que al ejecutar el script, solo ejecuta y no hace ninguna accion, esto es devido a que todavia no le agregamos una funcionalidad en sí  
 Ahora buscamos recuperar los argumentos con `proccess.argv` (implementado en javaScript)
+``` javascript
+#!/usr/bin/env node
+
+const fs = require('fs'); // fs es un módulo de Node.js que proporciona una API para interactuar con el sistema de archivos
+
+const args = process.argv.slice(2); // process.argv es una matriz que contiene los argumentos de la línea de comandos
+
+const regex = new RegExp(args[0]);  // RegExp es una clase que representa una expresión regular
+```
+Con esto el script tendria de entrad un argumento con expresiones regulares y ademas tendria la capacidad de interactuar con el sistema de archivos, solo quedaria agregarle la funcionalidad de poder buscar el argumento en el `archivo.txt` y asi impirmir en la consola con `console.log(MATCH);` y asi completar su funcionalidad.
+
+### 2 
