@@ -110,4 +110,42 @@ console.log(charizard.fight()); // Imprime "Utilizando el movimiento: Lanzallama
 ```
 En el codigo se puede apreciar lo pedido en la parctica, en la parte de RESPUESTA.
 ### 3
+Aquí hay un enfoque simple para implementar esta clase:
+```ruby
+class CurrentDay
+    def initialize
+        @date = Date.today
+        @schedule = MonthlySchedule.new(@date.year,
+        @date.month)
+    end
 
+    def work_hours
+        @schedule.work_hours_for(@date)
+    end
+
+    def workday?
+        !@schedule.holidays.include?(@date)
+    end
+end
+```
+¿Cuál es el problema con este enfoque dado, cuando quieres probar el metodo workday?. Utiliza la inyección de dependencia aplicado al siguiente código.
+```ruby
+before do
+    Date.singleton_class.class_eval do
+        alias_method :_today, :today
+        define_method(:today){Date.new(2020, 12, 16)}
+    end
+end
+
+after do
+    Date.singleton_class.class_eval do
+        alias_method :today, :_today
+        remove_method :_today
+    end
+end
+```
+¿Qué sucede en JavaScript con el DIP en este ejemplo?  
+[RESPUESTA]
+## Pregunta
+(Para responder esta pregunta utiliza el repositorio y las actividades que has desarrollado de Introducción a Rails)
+### 1
