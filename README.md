@@ -192,3 +192,53 @@ Para hacer eso primero devemos ir a `/introdccion a rails/rails` y ahí vamos a 
 ```
 donde podemos notar que hay dos agregados nuevos, que son `%th Num` de `%head` que es de la tabla, para poner la columa, tambien falta el numero de la pelicula que tenemos implementado ya en `movie.rb` como su `id`, entonces en `%tbody` de la misma tabla, agregamos `%td= movie.id` y con eso, esto se puede apreciar de la siguiente manera.
 ![](/imagenes/1.png)
+#### Modifica la acción Index del controlador para que devuelva las películas ordenadas alfabéticamente por título, en vez de por fecha de lanzamiento.
+Para mostrar esto y explicarlo, primero mostraremos la seccion de la tabla en el `index.html.haml`: 
+```
+
+%table#movies.table.table-sm.table-striped
+  %thead
+    %tr
+      %th Num 
+      %th{class: "#{'hilite' if params[:sort] == "title"}"}
+        = link_to "Movie Title", movies_path(:key_ratings => @ratings_to_show, :sort => "title"), id: "title_header"
+      %th Rating
+      %th{class: "#{'hilite' if params[:sort] == "release_date"}"}
+        = link_to "Release Date", movies_path(:key_ratings => @ratings_to_show, :sort => "release_date"), id: "release_date_header"
+      %th More Info
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td= movie.id
+        %td= movie.title 
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+
+= link_to 'Add new movie', new_movie_path
+
+```
+Aqui podemos notar que `= link_to "Movie Title", movies_path(:key_ratings => @ratings_to_show, :sort => "title"), id: "title_header"` nos da esa funcinolaidad porque ya se encuentra definido el `show.html.haml` de la siguiente manera: 
+```
+-# in app/views/movies/show.html.haml
+
+%h2 Details about #{@movie.title}
+
+%ul#details
+  %li
+    Rating:
+    = @movie.rating
+  %li
+    Released on:
+    = @movie.release_date.strftime("%B %d, %Y")
+
+%h3 Description:
+= link_to 'Edit info', edit_movie_path(@movie)
+%br
+= link_to 'Back to movie list', movies_path
+%br
+=link_to 'Add a Review', new_movie_review_path(@movie.id) 
+%br
+```
+Para que la salida sea de la siguiente manera.
+![](/imagenes/2.png)
