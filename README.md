@@ -150,4 +150,45 @@ end
 (Para responder esta pregunta utiliza el repositorio y las actividades que has desarrollado de Introducción a Rails)
 ### 1
 Modifique la lista de películas de la siguiente manera. Cada modificación va a necesitar que realice un cambio en una capa de abstracción diferente  
-- Modifica la vista Index para incluir el número de fila de cada fila en la tabla de películas.
+#### Modifica la vista Index para incluir el número de fila de cada fila en la tabla de películas.
+Para hacer eso primero devemos ir a `/introdccion a rails/rails` y ahí vamos a `app/views/movies` ahi tenemos 
+```
+-# add to beginning of index.html.haml
+%h1 All Movies
+
+= form_tag movies_path, :id => "ratings_form", :method => :get do
+  Include: 
+  - @all_ratings.each do |rating|
+    = label_tag  "ratings[#{rating}]", rating, class: 'form-check-label'
+    = check_box_tag "ratings[#{rating}]", "1", @ratings_to_show.include?(rating), class: 'form-check-input', :id => "ratings_#{rating}"
+  = submit_tag "Refresh", :id => "ratings_submit"
+
+
+-# add to end of index.html.haml
+
+= link_to 'Add new movie', new_movie_path
+
+
+%table#movies.table.table-sm.table-striped
+  %thead
+    %tr
+      %th Num 
+      %th{class: "#{'hilite' if params[:sort] == "title"}"}
+        = link_to "Movie Title", movies_path(:key_ratings => @ratings_to_show, :sort => "title"), id: "title_header"
+      %th Rating
+      %th{class: "#{'hilite' if params[:sort] == "release_date"}"}
+        = link_to "Release Date", movies_path(:key_ratings => @ratings_to_show, :sort => "release_date"), id: "release_date_header"
+      %th More Info
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td= movie.id
+        %td= movie.title 
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+
+= link_to 'Add new movie', new_movie_path
+```
+donde podemos notar que hay dos agregados nuevos, que son `%th Num` de `%head` que es de la tabla, para poner la columa, tambien falta el numero de la pelicula que tenemos implementado ya en `movie.rb` como su `id`, entonces en `%tbody` de la misma tabla, agregamos `%td= movie.id` y con eso, esto se puede apreciar de la siguiente manera.
+![](/imagenes/1.png)
